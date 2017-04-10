@@ -20,8 +20,8 @@
 #define N 4
 /* Function Prototypes */
 void Usage(void);
-void ReadFile(char* fName, float sum[], float x[], float[]);
-void Summation(float* summate, float sum[]);
+void ReadFile(char* fName, float summ[], float x[], float y[]);
+void Summation(float* summate, float summ[]);
 
 /* Main Program */
 int main(int argc, char *argv[])
@@ -30,20 +30,45 @@ int main(int argc, char *argv[])
 	float y[N];
 	float xy[N];
 	float x2[N];
-	float sum[10];
+	float summ[10];
 	float m, b;
 
 	int sumi;
 	float sumx = 0, sumy = 0, sumxy = 0, sumx2 = 0;
-	
+
 	if(argc != 2)
 	{
 		Usage();
 	}
 
-	ReadFile(argv[1], sum, x, y);
+	else
+	{
 
 
+		ReadFile(argv[1], summ, x, y);
+
+		Summation(x, &sumx);
+		Summation(y, &sumy);
+		Summation(xy, &sumxy);
+		Summation(x2, &sumx2);
+
+		sumi = (sumx * sumx);
+
+		//m = 0.37, b = -4.6
+
+		m = (((sumx * sumy) - (N * sumxy)) / (sumi - (N * sumx2)));
+		b = (((sumx * sumxy) - (sumx2 * sumy)) / (sumi - (N * sumx2)));
+
+		for(int i = 0; i < N; i++)
+		{
+			xy[i] = (x[i] * y[i]);
+			x2[i] = (x[i] * y[i]);
+			printf("Range of altitudes in km:\n %.2f to %.2f\n\n", x[0], x[i]);
+		}
+
+		printf("Linear model: \n");
+		printf("Ozone-mix-ratio = %.2f altitude + %.2f\n", m, b);
+	}
 
 	return 0;
 }
@@ -52,18 +77,52 @@ int main(int argc, char *argv[])
 /* Function Defenitions */
 void Usage(void)
 {
+	printf("Usage ./task2 <dataFile>\n");
+	exit(1);
 
 	return;
 }
-void ReadFile(char* fName, int data[])
+void ReadFile(char* fName, float summ[], float x[], float y[])
 {
+	int i, a, b;
+	int count = 0;
 	FILE *inFile;
-	inFile = fopen(fName, "r");
-	int
-	return;
-}
-void Summation(float* summate, float sum[])
-{
 
+	inFile = fopen(fName, "r");
+
+	if(inFile == NULL)
+	{
+		Usage();
+		exit(2);
+	}
+	else
+	{
+
+
+		while(fscanf(inFile, "%f", &summ[i]) != EOF)
+		{
+			if(count == 0)
+			{
+				x[a] = summ[i];
+				a++;
+				count = 1;
+			}
+			else
+			{
+				y[b] = summ[i];
+				b++;
+				count = 0;
+			}
+			i++;
+		}
+		return;
+	}
+}
+void Summation(float* summate, float summ[])
+{
+	for(int i = 0; i < N; i++)
+	{
+		(*summate) += summ[i];
+	}
 	return;
 }
