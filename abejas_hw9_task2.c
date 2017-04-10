@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 	float m, b;
 
 	int sumi;
+
 	float sumx = 0, sumy = 0, sumxy = 0, sumx2 = 0;
 
 	if(argc != 2)
@@ -47,24 +48,28 @@ int main(int argc, char *argv[])
 
 		ReadFile(argv[1], summ, x, y);
 
-		Summation(x, &sumx);
-		Summation(y, &sumy);
-		Summation(xy, &sumxy);
-		Summation(x2, &sumx2);
 
-		sumi = (sumx * sumx);
 
-		//m = 0.37, b = -4.6
-
-		m = (((sumx * sumy) - (N * sumxy)) / (sumi - (N * sumx2)));
-		b = (((sumx * sumxy) - (sumx2 * sumy)) / (sumi - (N * sumx2)));
 
 		for(int i = 0; i < N; i++)
 		{
 			xy[i] = (x[i] * y[i]);
 			x2[i] = (x[i] * y[i]);
-			printf("Range of altitudes in km:\n %.2f to %.2f\n\n", x[0], x[i]);
 		}
+		
+		printf("Range of altitudes in km:\n %.2f to %.2f\n\n", x[0], x[N-1]);
+		
+		Summation(&sumx, x);
+		Summation(&sumy, y);
+		Summation(&sumxy, xy);
+		Summation(&sumx2, x2);
+
+		sumi = (sumx * sumx);
+		
+		//m = 0.37, b = -4.6
+		
+		m = (((sumx * sumy) - (N * sumxy)) / (sumi - (N * sumx2)));
+		b = (((sumx * sumxy) - (sumx2 * sumy)) / (sumi - (N * sumx2)));
 
 		printf("Linear model: \n");
 		printf("Ozone-mix-ratio = %.2f altitude + %.2f\n", m, b);
