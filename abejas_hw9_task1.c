@@ -31,15 +31,14 @@ FILE *outfile;
 int main(int argc, char *argv[])
 {
 
-	strcpy(out, argv[2]);
-	strcpy(in, argv[1]);
 	if(argc != 3)
 	{
 		Usage(argv);
-		exit(1);
 	}
 	else
 	{	
+		strcpy(out, argv[2]);
+		strcpy(in, argv[1]);
 		ReadFile(in, data);
 
 
@@ -57,6 +56,7 @@ int main(int argc, char *argv[])
 void Usage(char** info)
 {
 	printf("Usage ./task1 <dataFile> <outFileName>\n");
+	exit(1);
 
 	return;
 }
