@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
 		Usage();
 	}
 
-	else
-	{
+//	else
+//	{
 
 
 		ReadFile(argv[1], summ, x, y);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 		for(int i = 0; i < N; i++)
 		{
 			xy[i] = (x[i] * y[i]);
-			x2[i] = (x[i] * y[i]);
+			x2[i] = (x[i] * x[i]);
 		}
 		
 		printf("Range of altitudes in km:\n %.2f to %.2f\n\n", x[0], x[N-1]);
@@ -70,10 +70,11 @@ int main(int argc, char *argv[])
 		
 		m = (((sumx * sumy) - (N * sumxy)) / (sumi - (N * sumx2)));
 		b = (((sumx * sumxy) - (sumx2 * sumy)) / (sumi - (N * sumx2)));
+		
 
 		printf("Linear model: \n");
 		printf("Ozone-mix-ratio = %.2f altitude + %.2f\n", m, b);
-	}
+//	}
 
 	return 0;
 }
@@ -120,6 +121,8 @@ void ReadFile(char* fName, float summ[], float x[], float y[])
 			}
 			i++;
 		}
+
+		fclose(inFile);
 		return;
 	}
 }
