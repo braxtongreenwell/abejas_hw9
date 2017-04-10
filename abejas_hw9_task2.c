@@ -13,9 +13,9 @@
  */
 #include <stdio.h>		/* For Standard I/O */
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include <math.h>
-#include <string.h>
 
 #define N 4
 /* Function Prototypes */
@@ -130,7 +130,7 @@ void Summation(float* summate, float summ[])
 {
 	for(int i = 0; i < N; i++)
 	{
-		(*summate) += summ[i];
+		*summate += summ[i];
 	}
 	return;
 }
